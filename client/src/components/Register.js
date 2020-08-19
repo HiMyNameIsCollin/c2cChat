@@ -11,7 +11,7 @@ const Register = ({setRoute, setError}) => {
 		if(passwordInput.length > 5) {
 			if(nameInput.length > 0) {
 				if(passwordInput === confirmInput){
-					fetch('http://localhost:3000/register', {
+					fetch('https://connect2collin.herokuapp.com/register', {
 						method: 'put',
 						headers: {'Content-Type' : 'application/json'},
 						body: JSON.stringify({

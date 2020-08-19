@@ -52,7 +52,7 @@ const Menu = ({onlineUsers, handleLogOut, loggedIn, setRoute, room, setRoom, soc
 					<p>Send {userInteract} a message? </p>
 					<div>
 						<input onClick={(e) => handleUserInteract(e, 'no')} type="button" value='Nope'/>
-						<input onClick={(e) => handleUserInteract(e, 'yes')} type="button" value='You betcha'/>
+						<input onClick={(e) => handleUserInteract(e, 'yes')} type="button" value='Yes'/>
 					</div>
 				</div>
 			</div> : 

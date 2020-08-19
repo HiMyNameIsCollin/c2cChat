@@ -9,7 +9,7 @@ const Login = ({setRoute, setError, setloggedIn, setUserRooms}) => {
 		e.preventDefault()
 		if(passwordInput.length > 5) {
 			if(emailInput.length > 5){
-				fetch('http://localhost:3000/login', {
+				fetch('https://connect2collin.herokuapp.com/login', {
 					method: 'post',
 					headers: {'Content-Type' : 'application/json'},
 					body: JSON.stringify({
