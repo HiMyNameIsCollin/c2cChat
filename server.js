@@ -32,7 +32,7 @@ const db = mongoose
 
 
 const connection = "mongodb+srv://Collin:collin1234@c2c-cluster.074h5.mongodb.net/c2c?retryWrites=true&w=majority";
-db.connect(connection,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+db.connect(process.env.MONGODB_URI || connection,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     .then(() => console.log("Database Connected Successfully"))
     .catch(err => console.log(err));
 
