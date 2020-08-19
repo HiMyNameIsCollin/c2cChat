@@ -19,7 +19,7 @@ const AppContainer = () => {
 /* SET SOCKET AFTER LOGIN*/
 	useEffect(() => {
 		if(loggedIn !== undefined) {
-			setSocket(socketIOClient('http://localhost:3000'))
+			setSocket(socketIOClient('https://connect2collin.herokuapp.com/'))
 		}
 	},[loggedIn])
 
