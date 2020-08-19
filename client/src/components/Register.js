@@ -51,7 +51,7 @@ const Register = ({setRoute, setError}) => {
 		      </div>
 		      <div class="mt3">
 		        <label class="db fw6 lh-copy f6" for="name">Name</label>
-		        <input onChange={(e) => {setName(e.target.value)}} class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" required pattern="[a-z\.]+"  type="name" name="name" id="name"/>
+		        <input onChange={(e) => {setName(e.target.value)}} class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" required pattern="[a-zA-Z\.]+"  type="name" name="name" id="name"/>
 		      </div>
 		      <div class="mv3">
 		        <label class="db fw6 lh-copy f6" for="password">Password</label>

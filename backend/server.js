@@ -19,16 +19,22 @@ app.use(bodyParser.json())
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
+
+	app.get('*', (req, res) => {
+    	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 }
 
 
 const db = mongoose
 
 /*CONNECT TO DATABASE*/
-db.connect(process.env.MONGODB_URI || 'mongodb://localhost/c2c', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-})
+
+
+const connection = "mongodb+srv://Collin:collin1234@c2c-cluster.074h5.mongodb.net/c2c?retryWrites=true&w=majority";
+db.connect(connection,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+    .then(() => console.log("Database Connected Successfully"))
+    .catch(err => console.log(err));
 
 
 
