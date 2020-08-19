@@ -190,8 +190,8 @@ app.post('/login' , (req, res) => {
 })
 
 
-const PORT = 3000 || process.env.PORT
+const myPort = 3000 || process.env.PORT 
 
-http.listen(PORT, () => {
-  console.log('SERVER RUNNING ON:', PORT);
+http.listen(myPort, () => {
+  console.log('SERVER RUNNING ON:', myPort);
 })
