@@ -34,10 +34,10 @@ const ChatRoom = ({r, loggedIn, socket, roomType}) => {
 		})
 	}, [socket])
 
-	useEffect(() => {
+/*	useEffect(() => {
 		lastMessage.current.scrollIntoView({ behavior: 'smooth' })
 	},[roomMessages])
-
+*/
 	const handleChatMessage = (e) => {
 		e.preventDefault()
 		socket.emit('chatMessage', {name: loggedIn, text: chatInput, room: r.name})
