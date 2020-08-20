@@ -34,9 +34,9 @@ const ChatRoom = ({r, loggedIn, socket, roomType}) => {
 		})
 	}, [socket])
 
-	useEffect(() => {
+/*	useEffect(() => {
 		lastMessage.current.scrollIntoView({ behavior: 'smooth' })
-	},[roomMessages])
+	},[roomMessages])*/
 
 	const handleChatMessage = (e) => {
 		e.preventDefault()
