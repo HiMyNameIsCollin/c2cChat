@@ -16,6 +16,18 @@ const AppContainer = () => {
 	const [socket, setSocket] = useState(undefined)
 	const [room, setRoom] = useState(undefined)
 
+	useEffect(()=>{
+	    function resize()
+	    {
+	        var heights = window.innerHeight;
+	        document.getElementById("appContainer").style.height = heights + "px";
+	    }
+	    resize();
+	    window.onresize = function() {
+	        resize();
+	    };
+	})
+
 /* SET SOCKET AFTER LOGIN*/
 	useEffect(() => {
 		if(loggedIn !== undefined) {
