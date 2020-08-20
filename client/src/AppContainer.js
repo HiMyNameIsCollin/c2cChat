@@ -21,6 +21,7 @@ const AppContainer = () => {
 	    {
 	        var heights = window.innerHeight;
 	        document.getElementById("appContainer").style.height = heights + "px";
+	
 	    }
 	    resize();
 	    window.onresize = function() {
