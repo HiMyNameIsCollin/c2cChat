@@ -22,7 +22,7 @@ html
 #appContainer 
   background: $prim-clr1
   display: grid
-  grid-template-rows: 12vh 88vh
+  grid-template-rows: 12vh 1fr
 
 
 #error
@@ -178,7 +178,8 @@ html
     grid-row: 3/4
     height: 100%
     padding: 0 .4em .4em .4em
-    position: relative
+    position: sticky
+    -web-kit-position: sticky
     width: 100%
     input
       border-radius: 5px
