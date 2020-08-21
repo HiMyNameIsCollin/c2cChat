@@ -15,8 +15,10 @@ const AppContainer = () => {
 	const [loggedIn, setloggedIn] = useState(undefined)
 	const [socket, setSocket] = useState(undefined)
 	const [room, setRoom] = useState(undefined)
+	const [height, setHeight] = useState()
 
 	useEffect(()=>{
+		setHeight(window.innerHeight)
 	    function resize()
 	    {
 	        var heights = window.innerHeight;
@@ -28,7 +30,7 @@ const AppContainer = () => {
 	    window.onresize = function() {
 	        resize();
 	    };
-	})
+	}, [height])
 
 /* SET SOCKET AFTER LOGIN*/
 	useEffect(() => {
