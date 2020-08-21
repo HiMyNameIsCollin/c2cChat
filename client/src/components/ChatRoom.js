@@ -1,12 +1,28 @@
 import React, {useState, useRef, useEffect} from 'react'
 import ChatMessage from './ChatMessage'
 
-const ChatRoom = ({r, loggedIn, socket, roomType}) => {
+const ChatRoom = ({r, loggedIn, socket, roomType, height}) => {
 	const [chatInput, setChatInput] = useState('')
 	const [roomMessages, setRoomMessages] = useState([])
 	const formRef = useRef()
 
 	const lastMessage = useRef()
+
+	useEffect(() => {
+	    function resize()
+	    {
+	        const heights = window.innerHeight 
+	        const chatRoomHeight = heights - 12 / 100 * heights
+	        document.getElementById("chatRoom").style.height = chatRoomHeight + "px"
+	        document.getElementById("chatRoom").style.maxHeight = chatRoomHeight + "px"
+	        document.getElementById("appContainer").style.height = heights + "px"
+	        document.getElementById("appContainer").style.maxHeight = heights + "px"  
+	    }
+	    resize();
+	    window.onresize = function() {
+	        resize();
+	    };
+	}, [height])
 
 	useEffect(() => {
 		setRoomMessages(r.messages)

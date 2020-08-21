@@ -20,10 +20,12 @@ const AppContainer = () => {
 	useEffect(()=>{
 	    function resize()
 	    {
-	        var heights = window.innerHeight;
-	        document.getElementById("appContainer").style.height = heights + "px";
-	        document.getElementById("appContainer").style.maxHeight = heights + "px";
-		    setHeight(heights + "px")
+	        const heights = window.innerHeight 
+	        document.getElementById("appContainer").style.height = heights + "px"
+	        document.getElementById("appContainer").style.maxHeight = heights + "px"
+		    setHeight(heights)
+		    console.log(heights)
+
 	    }
 	    resize();
 	    window.onresize = function() {
@@ -60,7 +62,6 @@ const AppContainer = () => {
 	useEffect(() => {
 		if(socket !== undefined){
 			socket.on('userConnected', payload => {
-				console.log(payload)
 				setOnlineUsers(previous => previous = payload.onlineUsers)
 				let rooms = []
 				payload.rooms.forEach((r, i) => {
@@ -120,7 +121,7 @@ const AppContainer = () => {
 			route === 'register' ?
 			<Register setRoute={setRoute} setError={setError}/> :
 			route === 'main' && userRooms.length !== 0 ?
-			<Main loggedIn={loggedIn} room={room} setRoom={setRoom} userRooms={userRooms} setUserRooms={setUserRooms} socket={socket} tempRooms={tempRooms}/> :
+			<Main height={height} loggedIn={loggedIn} room={room} setRoom={setRoom} userRooms={userRooms} setUserRooms={setUserRooms} socket={socket} tempRooms={tempRooms}/> :
 			route === 'menu' ?
 			<Menu onlineUsers={onlineUsers} handleLogOut={handleLogOut} loggedIn={loggedIn} setRoute={setRoute} room={room} setRoom={setRoom} socket={socket} tempRooms={tempRooms}/> :
 			null
