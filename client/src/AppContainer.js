@@ -15,24 +15,7 @@ const AppContainer = () => {
 	const [loggedIn, setloggedIn] = useState(undefined)
 	const [socket, setSocket] = useState(undefined)
 	const [room, setRoom] = useState(undefined)
-	const [height, setHeight] = useState()
 
-	useEffect(()=>{
-	    function resize()
-	    {
-	        const heights = window.innerHeight 
-	        document.getElementById("appContainer").style.height = heights + "px"
-	        document.getElementById("appContainer").style.maxHeight = heights + "px"
-		    setHeight(heights)
-		    console.log(heights)
-
-	    }
-	    resize();
-	    window.onresize = function() {
-	        resize();
-	    };
-
-	}, [height])
 
 /* SET SOCKET AFTER LOGIN*/
 	useEffect(() => {
@@ -121,7 +104,7 @@ const AppContainer = () => {
 			route === 'register' ?
 			<Register setRoute={setRoute} setError={setError}/> :
 			route === 'main' && userRooms.length !== 0 ?
-			<Main height={height} loggedIn={loggedIn} room={room} setRoom={setRoom} userRooms={userRooms} setUserRooms={setUserRooms} socket={socket} tempRooms={tempRooms}/> :
+			<Main loggedIn={loggedIn} room={room} setRoom={setRoom} userRooms={userRooms} setUserRooms={setUserRooms} socket={socket} tempRooms={tempRooms}/> :
 			route === 'menu' ?
 			<Menu onlineUsers={onlineUsers} handleLogOut={handleLogOut} loggedIn={loggedIn} setRoute={setRoute} room={room} setRoom={setRoom} socket={socket} tempRooms={tempRooms}/> :
 			null
