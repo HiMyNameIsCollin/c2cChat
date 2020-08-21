@@ -22,7 +22,7 @@ const ChatRoom = ({r, loggedIn, socket, roomType, height}) => {
 	    window.onresize = function() {
 	        resize();
 	    };
-	}, [height])
+	})
 
 	useEffect(() => {
 		setRoomMessages(r.messages)
