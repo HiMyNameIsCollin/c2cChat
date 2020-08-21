@@ -18,18 +18,18 @@ const AppContainer = () => {
 	const [height, setHeight] = useState()
 
 	useEffect(()=>{
-		setHeight(window.innerHeight)
 	    function resize()
 	    {
 	        var heights = window.innerHeight;
 	        document.getElementById("appContainer").style.height = heights + "px";
 	        document.getElementById("appContainer").style.maxHeight = heights + "px";
-	
+		    setHeight(heights + "px")
 	    }
 	    resize();
 	    window.onresize = function() {
 	        resize();
 	    };
+
 	}, [height])
 
 /* SET SOCKET AFTER LOGIN*/
