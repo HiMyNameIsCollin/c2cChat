@@ -58,7 +58,9 @@ const Menu = ({onlineUsers, handleLogOut, loggedIn, setRoute, room, setRoom, soc
 			</div> : 
 			null
 		}
-			<h3>Online users</h3>
+			<div>
+				<h3>Online users</h3>
+			</div>
 			<div id="onlineUsersContainer">
 			{
 				onlineUsers.map((u, i) => {

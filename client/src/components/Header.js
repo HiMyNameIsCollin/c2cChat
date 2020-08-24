@@ -4,7 +4,7 @@ const Header = ({loggedIn, room, setRoom, route, setRoute}) => {
 	return (
 		<div id='header'>
 			{
-			room !==undefined && loggedIn !== undefined ?
+			room !==undefined && loggedIn !== undefined && route !== 'menu' ?
 			<div onClick={() => setRoom(undefined)} id="backBtn"></div> :
 			null
 			}
