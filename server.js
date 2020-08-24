@@ -7,12 +7,15 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 var bcrypt = require('bcryptjs')
 const moment = require('moment')
-const mongoose = require('mongoose')
+const db = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 const formatMessage = require('./utils/formatMessage')
 
 const {RoomModel, MessageModel} = require('./models/roomModel')
 const UserModel = require('./models/userModel')
+
+const register = require('./controllers/register');
+const login = require('./controllers/login')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -25,8 +28,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-
-const db = mongoose
 
 /*CONNECT TO DATABASE*/
 
@@ -45,6 +46,7 @@ const onlineUsers = []
 io.on('connection', socket => {
 	console.log('User connected')
 
+/*##############TRANSMIT ROOMS UPON CONNECTIONS ##############*/
 
 	socket.on('userConnected', message => {
 		let chatRooms
@@ -60,6 +62,8 @@ io.on('connection', socket => {
 			}
 		})
 	})
+
+/*################CHECK FOR NEW MESSAGES UPON ROOM OPENING##############*/
 
 	socket.on('joinRoom', message => {
 		RoomModel.find({name: message.room}).then((result) => {
@@ -92,6 +96,8 @@ io.on('connection', socket => {
 
 	})
 
+/*##############TRANSMIT CHAT MESSAGE###################*/
+
 	socket.on('chatMessage', message=> {
 		io.sockets.emit('chatMessage', formatMessage(message.name, message.text, message.room))
 		const newMessage = new MessageModel({ 
@@ -104,7 +110,7 @@ io.on('connection', socket => {
 		})
 	})
 	
-
+/*###############UPDATE ONLINE USERS UPON DISCONNECT##################*/
 	socket.on('disconnect', () => {
 		let user 
 		onlineUsers.map((u, i) => {
@@ -123,71 +129,12 @@ io.on('connection', socket => {
 /*#######################REST CALLS######################################*/
 
 
-app.put('/register', (req, res) => {
-	const {email, name, password} = req.body
-	const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
-	const emailNormalized = email.charAt(0).toLowerCase() + email.slice(1)
-	const hash = bcrypt.hashSync(password)
-	UserModel.findOne({name: nameCapitalized}).then(result => {
-		if(result === null){
-			UserModel.findOne({email: emailNormalized}).then(result => {
-				if(result === null){
-					const user = new UserModel({
-						id: uuidv4(),
-						email: emailNormalized,
-						name: nameCapitalized,
-						hash: hash
-					})
-					user.save().then(() => {
-						RoomModel.updateOne({name: 'Public'}, {$push: {users: nameCapitalized}})
-						.then(() => {
-							if(nameCapitalized !== 'Collin'){
-							const welcomeMessage = new MessageModel({
-								name: 'Robo-Collin',
-								text: 'Thank you for using Connect to Collin, leave me a message here and Ill get back to you asap!',
-								time: moment().format('h:mm:ss A')
-							})
-							const room = new RoomModel({
-								name: nameCapitalized,
-								users: ['Collin', nameCapitalized],
-								messages: [welcomeMessage]
-							})
-							room.save()
-							}
-						})
-						.then(()=>{
-							res.send('Success')
-						})
-					})
-				} else {
-					res.status(400).json('Credentials already in use')
-				}
-			})
-		} else {
-			res.status(400).json('Credentials already in use')
-		}
-	})
+app.put('/register', (req, res) => { register.handleRegister(req, res, bcrypt, UserModel, RoomModel)})
+
+app.post('/login' , login.handleLogin(bcrypt, UserModel))
 
 
-})
 
-
-app.post('/login' , (req, res) => {
-	const {email, password} = req.body
-	const emailNormalized = email.charAt(0).toLowerCase() + email.slice(1)
-	UserModel.findOne({email: emailNormalized}).then(result => {
-		if(result !== null){
-			const isValid = bcrypt.compareSync(password, result.hash)
-			if(isValid){
-				res.json({user: result.name})
-			}else {
-				res.status(400).json('Something about your credidentals were amiss')
-			}
-		}else {
-				res.status(400).json('Something about your credidentals were amiss')
-		}
-	})
-})
 
 
 const myPort = process.env.PORT || 3000
