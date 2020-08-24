@@ -1,4 +1,4 @@
-const handleRegister = (req, res, bcrypt, UserModel, RoomModel)
+const handleRegister = (req, res, bcrypt, UserModel, RoomModel) => {
 	const {email, name, password} = req.body
 	const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
 	const emailNormalized = email.charAt(0).toLowerCase() + email.slice(1)
@@ -41,7 +41,9 @@ const handleRegister = (req, res, bcrypt, UserModel, RoomModel)
 		} else {
 			res.status(400).json('Credentials already in use')
 		}
-	})
+	})	
+}
+
 
 
 
