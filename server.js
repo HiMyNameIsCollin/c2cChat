@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 /*CONNECT TO DATABASE*/
 
 
-const connection = "mongodb+srv://Collin:shadow@c2c-cluster.074h5.mongodb.net/c2c?retryWrites=true&w=majority";
+const connection = "mongodb+srv://Collin:collin1234@c2c-cluster.074h5.mongodb.net/c2c?retryWrites=true&w=majority";
 db.connect(process.env.MONGODB_URI || connection,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     .then(() => console.log("Database Connected Successfully"))
     .catch(err => console.log(err));
