@@ -58,7 +58,7 @@ const Menu = ({onlineUsers, handleLogOut, loggedIn, setRoute, room, setRoom, soc
 			</div> : 
 			null
 		}
-			<div>
+			<div id='onlineUsersLabel'>
 				<h3>Online users</h3>
 			</div>
 			<div id="onlineUsersContainer">
