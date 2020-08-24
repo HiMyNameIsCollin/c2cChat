@@ -11,7 +11,7 @@ const db = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 const formatMessage = require('./utils/formatMessage')
 
-const RoomModel = require('./models/roomModel')
+const {RoomModel, MessageModel} = require('./models/roomModel')
 const UserModel = require('./models/userModel')
 
 const register = require('./controllers/register')
@@ -100,12 +100,14 @@ io.on('connection', socket => {
 
 	socket.on('chatMessage', message=> {
 		io.sockets.emit('chatMessage', formatMessage(message.name, message.text, message.room))
-		const newMessage = { 
+		const newMessage = new MessageModel({ 
 			name: message.name,
 			text: message.text,
 			time: moment().format('h:mm:ss A'),
-		}
-		RoomModel.updateOne({name: message.room}, {$push: {messages: newMessage}})
+		})
+		RoomModel.updateOne({name: message.room}, {$push: {messages: newMessage}}).then(()=> {
+			newMessage.save()
+		})
 	})
 	
 /*###############UPDATE ONLINE USERS UPON DISCONNECT##################*/
