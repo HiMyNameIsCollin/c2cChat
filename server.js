@@ -100,14 +100,12 @@ io.on('connection', socket => {
 
 	socket.on('chatMessage', message=> {
 		io.sockets.emit('chatMessage', formatMessage(message.name, message.text, message.room))
-		const newMessage = new MessageModel({ 
+		const newMessage = { 
 			name: message.name,
 			text: message.text,
 			time: moment().format('h:mm:ss A'),
-		})
-		RoomModel.updateOne({name: message.room}, {$push: {messages: newMessage}}).then(()=> {
-			newMessage.save()
-		})
+		}
+		RoomModel.updateOne({name: message.room}, {$push: {messages: newMessage}})
 	})
 	
 /*###############UPDATE ONLINE USERS UPON DISCONNECT##################*/
