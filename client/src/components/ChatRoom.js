@@ -41,9 +41,12 @@ const ChatRoom = ({r, loggedIn, socket, roomType}) => {
 
 	const handleChatMessage = (e) => {
 		e.preventDefault()
-		socket.emit('chatMessage', {name: loggedIn, text: chatInput, room: r.name})
-		setChatInput('')
-		formRef.current.value = ''
+		if(chatInput.length > 0) {
+			socket.emit('chatMessage', {name: loggedIn, text: chatInput, room: r.name})
+			setChatInput('')
+			formRef.current.value = ''			
+		}
+
 	}
 
 	
