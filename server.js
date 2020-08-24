@@ -66,10 +66,11 @@ io.on('connection', socket => {
 /*################CHECK FOR NEW MESSAGES UPON ROOM OPENING##############*/
 
 	socket.on('joinRoom', message => {
-		RoomModel.find({name: message.room}).then((result) => {
+		const {room, length} = message
+		RoomModel.find({name: room}).then((result) => {
 			if(result !== null) {
 				if(result[0].messages.length > message.length){
-					const newMessages = result[0].messages.slice(message.length, result[0].messages.length)
+					const newMessages = result[0].messages.slice(length, result[0].messages.length)
 					io.sockets.emit('joinedRoom', newMessages)
 				}else {
 					io.sockets.emit('joinedRoom', {})
@@ -99,13 +100,14 @@ io.on('connection', socket => {
 /*##############TRANSMIT CHAT MESSAGE###################*/
 
 	socket.on('chatMessage', message=> {
-		io.sockets.emit('chatMessage', formatMessage(message.name, message.text, message.room))
-		const newMessage = new MessageModel({ 
-			name: message.name,
-			text: message.text,
+		const {name, text, room} = message
+		io.sockets.emit('chatMessage', formatMessage(name, text, room))
+		const newMessage = { 
+			name: name,
+			text: text,
 			time: moment().format('h:mm:ss A'),
-		})
-		RoomModel.updateOne({name: message.room}, {$push: {messages: newMessage}}).then(()=> {
+		}
+		RoomModel.updateOne({name: room}, {$push: {messages: newMessage}}).then(()=> {
 			newMessage.save()
 		})
 	})
