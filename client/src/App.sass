@@ -25,6 +25,26 @@ html
   grid-template-rows: 12vh 1fr
   height: 100vh
 
+#loading
+  align-items: center
+  bottom: 0
+  display: flex
+  height: 88%
+  left: 0
+  justify-content: center
+  overflow: hidden
+  position: absolute
+  width: 100%
+  z-index: 1
+  &::before
+    background: $prim-clr1
+    content: ''
+    height: 100%
+    opacity: 0.7
+    position: absolute
+    width: 100%
+    z-index: -1
+
 
 #error
   bottom: 0
@@ -82,8 +102,8 @@ html
   grid-template-rows: 1fr .5fr 1fr
   grid-row: 1/2
   height: 100%
-  -web-kit-position: sticky
-  position: sticky
+  -web-kit-position: relative
+  position: relative
   z-index: 1
   span
     color: black
@@ -149,9 +169,10 @@ html
   grid-row: 1/2
   grid-column: 2/3
   overflow: auto
+  overflow-x: hidden
   div
-    -webkit-animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both
-    animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
+    animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
     background: $prim-clr4
     border-radius: 5px
     padding: 1em 0
@@ -181,8 +202,8 @@ html
     grid-row: 3/4
     height: 100%
     padding: 0 .4em .4em .4em
-    position: sticky
-    -web-kit-position: sticky
+    position: relative
+    -web-kit-position: relative
     width: 100%
     input
       border-radius: 5px
@@ -200,8 +221,8 @@ html
   max-width: 600px
   margin: auto
   padding: 6px 0
-  -web-kit-position: sticky
-  position: sticky
+  -web-kit-position: relative
+  position: relative
   width: 100%
   z-index: 1
   p
@@ -257,10 +278,11 @@ html
   flex-direction: column
   height: 100%
   overflow: auto
+  overflow-x: hidden
   position: relative
   div
-    -webkit-animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both
-    animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
+    animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
     align-items: center
     background: $prim-clr4
     border-radius: 5px
@@ -392,8 +414,8 @@ html
     grid-template-columns: 1fr .3fr .2fr .3fr 1fr
     grid-template-rows: 1fr
     height: 100%
-    position: sticky
-    -web-kit-position: sticky
+    position: relative
+    -web-kit-position: relative
     z-index: 1
     span
       color: black
@@ -435,8 +457,8 @@ html
     grid-template-columns: 1fr .3fr .2fr .3fr 1fr
     grid-template-rows: 1fr
     height: 100%
-    position: sticky
-    -web-kit-position: sticky
+    position: relative
+    -web-kit-position: relative
     z-index: 1
     span
       color: black
@@ -478,8 +500,8 @@ html
     grid-template-columns: 1fr .3fr .2fr .3fr 1fr
     grid-template-rows: 1fr
     height: 100%
-    position: sticky
-    -web-kit-position: sticky
+    position: relative
+    -web-kit-position: relative
     z-index: 1
     span
       color: black

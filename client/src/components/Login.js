@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Login = ({setRoute, setError, setloggedIn, setUserRooms}) => {
+const Login = ({setRoute, setError, setLoading, setloggedIn, setUserRooms}) => {
 
 	const [emailInput, setEmail] = useState('')
 	const [passwordInput, setPassword] = useState('')
@@ -9,6 +9,7 @@ const Login = ({setRoute, setError, setloggedIn, setUserRooms}) => {
 		e.preventDefault()
 		if(passwordInput.length > 5) {
 			if(emailInput.length > 5){
+				setLoading(true)
 				fetch('https://connect2collin.herokuapp.com/login', {
 					method: 'post',
 					headers: {'Content-Type' : 'application/json'},

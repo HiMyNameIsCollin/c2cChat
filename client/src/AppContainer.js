@@ -5,6 +5,7 @@ import Register from './components/Register'
 import Header from './components/Header'
 import Menu from './components/Menu'
 import socketIOClient from 'socket.io-client'
+import Loader from 'react-loader-spinner'
 
 const AppContainer = () => {
 	const [route, setRoute] = useState('login')
@@ -15,7 +16,7 @@ const AppContainer = () => {
 	const [loggedIn, setloggedIn] = useState(undefined)
 	const [socket, setSocket] = useState(undefined)
 	const [room, setRoom] = useState(undefined)
-
+	const [loading, setLoading] = useState(false)
 
 /* SET SOCKET AFTER LOGIN*/
 	useEffect(() => {
@@ -45,6 +46,7 @@ const AppContainer = () => {
 	useEffect(() => {
 		if(socket !== undefined){
 			socket.on('userConnected', payload => {
+				setLoading(false)
 				setOnlineUsers(previous => previous = payload.onlineUsers)
 				let rooms = []
 				payload.rooms.forEach((r, i) => {
@@ -87,6 +89,13 @@ const AppContainer = () => {
 
 	return(
 		<div id="appContainer">
+		{
+			loading === true ? 
+			<div id='loading'> 
+				<Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+	        </div> : 
+			null
+		}
 		{	
 			error !== undefined ? 
 			<div onClick={() => {
@@ -100,7 +109,7 @@ const AppContainer = () => {
 			<Header loggedIn={loggedIn} route={route} setRoute={setRoute} room={room} setRoom={setRoom} />
 		{
 			route === 'login' ?
-			<Login setRoute={setRoute} setError={setError} setloggedIn={setloggedIn} setUserRooms={setUserRooms}/> :
+			<Login setRoute={setRoute} setError={setError} setLoading={setLoading} setloggedIn={setloggedIn} setUserRooms={setUserRooms}/> :
 			route === 'register' ?
 			<Register setRoute={setRoute} setError={setError}/> :
 			route === 'main' && userRooms.length !== 0 ?
