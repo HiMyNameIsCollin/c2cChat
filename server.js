@@ -11,7 +11,7 @@ const db = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 const formatMessage = require('./utils/formatMessage')
 
-const {RoomModel, MessageModel} = require('./models/roomModel')
+const RoomModel = require('./models/roomModel')
 const UserModel = require('./models/userModel')
 
 const register = require('./controllers/register')
